@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi 密碼查詢</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: inline-block;
+        }
+        input, button {
+            margin-top: 10px;
+            padding: 10px;
+        }
+        .button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .button:hover {
+            background-color: #218838;
+        }
+        #wifiForm {
+            display: none; /* 預設隱藏 WiFi 查詢表單 */
+            margin-top: 20px;
+        }
+        input, button {
+            margin-top: 10px;
+            padding: 10px;
+        }
+        .close-button {
+            margin-top: 10px;
+            padding: 5px 15px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .close-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>房間資訊系統</h1>
+        <h3>單人房:101,102,103</h3>
+        <h3>雙人房:201,202,203</h3>
+        <h3>四人房:301,302,303</h3>
+        <p>請輸入您的房間號碼：</p>
+        <button class="button" onclick="showWifiForm()">查詢 房間WiFi 資訊</button>
+
+        <!-- 隱藏的 WiFi 查詢表單 -->
+        <div id="wifiForm">
+            <h2>WiFi 密碼查詢</h2>
+            <p>請輸入您的房間號碼：</p>
+            <input type="text" id="roomNumber" placeholder="輸入房間號">
+            <button onclick="getWifiPassword()">查詢</button>
+            
+            <p id="wifiInfo"></p>
+            <br>
+            <button class="close-button" onclick="hideWifiForm()">返回</button>
+        </div>
+    </div>
+
+    <script>
+        function showWifiForm() {
+            document.getElementById("wifiForm").style.display = "block"; // 顯示 WiFi 查詢表單
+        }
+
+        function hideWifiForm() {
+            document.getElementById("wifiForm").style.display = "none"; // 隱藏 WiFi 查詢表單
+        }
+
+        function getWifiPassword() {
+            const roomNumber = document.getElementById("roomNumber").value;
+            const validRooms = ["101", "102", "103", "201", "202", "203", "301", "302", "303"]
+            const roomResult = document.getElementById("roomResult");
+            let wifiPasswords = {
+                "101": "password101",
+                "201": "password201",
+                "301": "password301",
+                "102": "password102",
+                "202": "password202",
+                "302": "password302",
+                "103": "password103",
+                "201": "password203",
+                "303": "password303"
+            };
+            let wifiName = "MyHotelWiFi";
+
+            if (wifiPasswords[roomNumber]) {
+                document.getElementById("wifiInfo").innerHTML = 
+                    `WiFi 名稱：<strong>${wifiName}</strong><br>WiFi 密碼：<strong>${wifiPasswords[roomNumber]}</strong><br>房間 ${roomNumber} 仍有空位！` ;
+            } else {
+                document.getElementById("wifiInfo").innerHTML = "找不到該房間的 WiFi 資訊。";
+            }
+        }
+        
+    </script>
+</body>
+</html>
